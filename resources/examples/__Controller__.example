@@ -1,0 +1,29 @@
+<?php
+
+namespace App\Http\Controllers\Backend;
+
+use App\Http\Requests\___Name___Request;
+use App\Http\Resources\___Name___Resource;
+use App\Models\___Name___;
+use Illuminate\Http\Request;
+
+class ___Name___Controller extends BaseController
+{
+    protected $model = ___Name___::class;
+    protected $resource = ___Name___Resource::class;
+    // protected $indexScopes=[];
+    // protected $showScopes=[];
+    // protected $updateScopes=[];
+    // protected $destroyScopes=[];
+
+    public function store(___Name___Request $request)
+    {
+        return parent::storeAction($request);
+    }
+
+    public function update(___Name___Request $request, $id)
+    {
+        return parent::updateAction($request, $id);
+    }
+}
+

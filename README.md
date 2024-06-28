@@ -1,128 +1,100 @@
-# Egyptian Red Crescent
+# QuickCRUD
 
-![Egyptian Red Crescent Logo](public/logo-white.png)
-
-## Introduction
-
-This project is a comprehensive system management tool designed for the Egyptian Red Crescent. Built with Laravel 10 and PHP 8.2, the system aims to streamline and manage various operational aspects of the organization efficiently.
+QuickCRUD is a Laravel-based project designed to streamline and accelerate the creation of full CRUD (Create, Read, Update, Delete) operations. This powerful tool enables developers to generate all necessary files and configurations for a new entity within minutes, significantly reducing development time and effort.
 
 ## Features
 
-- **User Management**: Manage user roles and permissions.
-- **Notification System**: Real-time notifications for users.
-- **Reporting**: Generate and view reports on various aspects of the organization.
-- **Task Management**: Create, assign, and track tasks.
-- **Resource Management**: Manage resources and inventory.
-- **Audit Logs**: Track changes and activities within the system.
-
-## Requirements
-
-- PHP 8.2
-- Composer
-- Node.js & NPM
-- MySQL or PostgreSQL
+- **Rapid Setup**: Clone the repository, set up Composer, run migrations and seed the database, and you’re ready to go.
+- **Automated CRUD Generation**: Use the intuitive admin panel to create new entities. QuickCRUD automatically generates the migration file, model, controller, request, resource, Blade views, and JavaScript for the specified entity.
+- **User-Friendly Interface**: The admin panel provides a straightforward interface for configuring new pages and managing existing ones.
+- **Flexible Configuration**: Easily configure settings for each entity to customize the generated files according to your requirements.
+- **Efficient Development**: Reduce repetitive coding tasks and focus on building unique features for your application.
 
 ## Installation
 
-Follow these steps to set up the project on your local machine.
+1. Clone the repository:
+    ```bash
+    git clone https://github.com/SeniorMahmoudBadr/QuickCRUD.git
+    cd QuickCRUD
+    ```
 
-### Clone the repository
+2. Install dependencies:
+    ```bash
+    composer install
+    ```
 
-```bash
-git clone https://gitlab.com/intrazero/team2/erc.git
-cd erc
-```
+3. Copy the `.env` file and set up your environment variables:
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-### Install dependencies
+4. Run migrations and seed the database:
+    ```bash
+    php artisan migrate --seed
+    ```
 
-```bash
-composer install
-npm install
-```
-
-### Set up environment file
-
-Copy the `.env.example` file to `.env` and fill in your database and other environment variables.
-
-```bash
-cp .env.example .env
-```
-
-### Generate application key
-
-```bash
-php artisan key:generate
-```
-
-### Run migrations and seeders
-
-```bash
-php artisan migrate --seed
-```
-
-### Start the development server
-
-```bash
-php artisan serve
-```
-
-### Compile assets
-
-```bash
-npm run dev
-```
+5. Serve the application:
+    ```bash
+    php artisan serve
+    ```
 
 ## Usage
 
-After installing the application, you can access the development server at `http://localhost:8000`.
+1. Access the admin panel: http://localhost:8000/admin
 
-### Admin Access
 
-Use the following credentials to log in as an admin:
+2. Create a new CRUD page:
+- Navigate to the "Create Page" section.
+- Enter the name of the entity (e.g., "Category").
+- Configure the necessary settings.
+- The system will generate the required files (migration, model, controller, request, resource, Blade views, and JavaScript).
 
-- **Email**: admin@example.com
-- **Password**: password
+3. Verify the generated files and make any necessary adjustments.
 
-## Seeding Data
+4. **Handle columns in the migration file**:
+- Open the generated migration file (e.g., `2024_06_27_123456_create_categories_table.php`).
+- Add the necessary columns to the migration file:
+    ```php
+    public function up()
+    {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('name_en');
+            $table->string('name_ar');
+            $table->text('description')->nullable();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
+        });
+    }
+    ```
 
-To seed the database with initial data, you can use the following command:
+5. **Handle validation rules in the request file**:
+- Open the generated request file (e.g., `CategoryRequest.php`).
+- Add the necessary validation rules:
+    ```php
+    public function rules()
+    {
+        return [
+            'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
+            'description' => 'nullable|string',
+        ];
+    }
+    ```
 
-```bash
-php artisan db:seed
-```
+6. Run the migrations:
+ ```bash
+ php artisan migrate
+ ```
 
-This will run all the seeders located in the `database/seeders` directory.
+## Contribution
 
-## Clearing Cache
-
-To clear the application cache, you can use the following command:
-
-```bash
-php artisan cache:clear
-```
-
-## Contributing
-
-We welcome contributions to the System Management project for the Egyptian Red Crescent! If you find a bug or have a feature request, please create an issue or submit a pull request. Make sure to follow the contribution guidelines.
-
-### Contribution Guidelines
-
-1. Fork the repository.
-2. Create a new branch for your feature or bugfix.
-3. Commit your changes with descriptive commit messages.
-4. Push your branch and create a pull request.
+Contributions are welcome! If you have suggestions for improvements or want to report issues, please create an issue or submit a pull request.
 
 ## License
 
-This project is open-source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contact
 
-For any inquiries or support, please contact us at:
 
-- **Email**: support@egyptianredcrescent.org
-- **Phone**: +20 123 456 7890
-
----
-
-Feel free to modify and expand upon this template to suit the specific needs and features of your project.

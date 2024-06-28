@@ -11,8 +11,8 @@ class Admin extends User
     protected static function booted(): void
     {
         $roleName = Role::findById(Page::where('route', request()->segment(2))->first()->role_id)->name;
-        static::addGlobalScope('byRole',function ($query){
-            $query->has('role_id', Role::findByName('admin')->id);
+        static::addGlobalScope('byRole',function ($query) use ($roleName) {
+            $query->role($roleName);
         });
         static::saving(function ($admin) use ($roleName) {
             $admin->assignRole($roleName);

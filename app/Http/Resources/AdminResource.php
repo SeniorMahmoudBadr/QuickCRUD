@@ -22,7 +22,7 @@ class AdminResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'status' => $this->status($this),
+            'active' => $this->status($this),
             'actions' => $this->actions($this)
         ];
     }

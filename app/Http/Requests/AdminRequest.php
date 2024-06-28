@@ -8,31 +8,12 @@ use Illuminate\Validation\Rule;
 
 class AdminRequest extends FormRequest
 {
-    public bool $isUpdateRequest = false;
-
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
         return true;
-    }
-
-    protected function prepareForValidation()
-    {
-        $user = auth()->user();
-        $myRole = $user->role;
-
-        if($myRole->user_role === 2){
-            $this->merge([
-                'governorate_id' => $user->governorate_id
-            ]);
-        }elseif($myRole->user_role === 3){
-            $this->merge([
-                'governorate_id' => $user->governorate_id,
-                'directorate_id' => $user->directorate_id
-            ]);
-        }
     }
 
     /**
@@ -48,9 +29,6 @@ class AdminRequest extends FormRequest
             'name' => ['required', 'string', 'min:2', 'max:255'],
             'password' => ['nullable', Rule::requiredIf($this->isMethod('POST')), 'min:6', 'max:255', 'confirmed'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $this->route('id')],
-            'governorate_id' => [Rule::requiredIf(in_array($role->user_role,[2,3,4])), 'exists:governorates,id'],
-            'directorate_id' => [Rule::requiredIf(in_array($role->user_role,[3,4])), 'exists:directorates,id'],
-            'health_unit_id' => [Rule::requiredIf(in_array($role->user_role,[4])), 'exists:health_units,id'],
         ];
     }
 

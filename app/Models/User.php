@@ -27,7 +27,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'status',
+        'active',
         'password',
     ];
 
@@ -103,7 +103,7 @@ class User extends Authenticatable
             ],
             [
                 'title' => __('app.Status'),
-                'data' => 'status',
+                'data' => 'active',
                 "searchable" => true,
                 "orderable" => true,
                 'visible' => true,
